@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cardsChosen.push(cardArray[cardId].name);
             cardsChosenId.push(cardId);
             this.setAttribute('src', cardArray[cardId].img);
-            if (cardsChosen.length === 2) {
+            if (cardsChosen.length === 3) {
                 setTimeout(checkForMatch, 500);
             }
         }
@@ -51,24 +51,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function checkForMatch() {
         const cards = document.querySelectorAll('#game-board img');
-        const firstCardId = cardsChosenId[0];
-        const secondCardId = cardsChosenId[1];
 
-        if (cardsChosen[0] === cardsChosen[1] && firstCardId !== secondCardId) {
+        if (cardsChosen[0] === cardsChosen[1] && cardsChosen[0] === cardsChosen[2]) {
+            const firstCardId = cardsChosenId[0];
+            const secondCardId = cardsChosenId[1];
+            const thirdCardId = cardsChosenId[2];
+            
             cards[firstCardId].style.visibility = 'hidden';
             cards[secondCardId].style.visibility = 'hidden';
+            cards[thirdCardId].style.visibility = 'hidden';
             cards[firstCardId].removeEventListener('click', flipCard);
             cards[secondCardId].removeEventListener('click', flipCard);
+            cards[thirdCardId].removeEventListener('click', flipCard);
             cardsWon.push(cardsChosen);
         } else {
-            cards[firstCardId].setAttribute('src', 'images/blank.png');
-            cards[secondCardId].setAttribute('src', 'images/blank.png');
+            for (let i = 0; i < cardsChosenId.length; i++) {
+                const cardId = cardsChosenId[i];
+                cards[cardId].setAttribute('src', 'images/blank.png');
+            }
         }
 
         cardsChosen = [];
         cardsChosenId = [];
 
-        if (cardsWon.length === cardArray.length / 2) {
+        if (cardsWon.length === cardArray.length / 3) {
             alert('Congratulations! You found them all!');
         }
     }
