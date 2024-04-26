@@ -34,11 +34,10 @@ h1 {
     justify-content: center;
     padding: 20px;
 }
-
 .card {
-    width: 211.8px;
-    height: 166.2px;
-    background-color: #565c6f;
+    width: 150px; /* Decreased width */
+    height: 125px; /* Decreased height */
+    background-color: #565c6f; /* Default color, will be overridden */
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     cursor: pointer;
@@ -49,7 +48,7 @@ h1 {
 }
 
 .card img {
-    width: 100%;
+    width: 80%; /* Decreased image size to 80% of the card */
     height: auto;
     visibility: hidden; /* Hide images by default */
     display: block;
@@ -57,6 +56,15 @@ h1 {
 
 .card.show img {
     visibility: visible; /* Show image when card is flipped */
+}
+
+/* Alternate card colors */
+.card:nth-child(odd) {
+    background-color: #ff0000; /* Red for odd cards */
+}
+
+.card:nth-child(even) {
+    background-color: #000000; /* Black for even cards */
 }
 
 #start-game {
