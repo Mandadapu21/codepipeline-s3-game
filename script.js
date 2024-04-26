@@ -5,15 +5,18 @@ document.addEventListener('DOMContentLoaded', () => {
     let cardsChosenId = [];
     let cardsWon = [];
 
-    // Update the cardArray with additional pairs and ensure there are multiples of 3
     const cardArray = [
         { name: 'card1', img: 'images/distracted.png' },
         { name: 'card1', img: 'images/distracted.png' },
-        { name: 'card1', img: 'images/distracted.png' },
         { name: 'card2', img: 'images/drake.png' },
         { name: 'card2', img: 'images/drake.png' },
-        { name: 'card2', img: 'images/drake.png' },
-        // ...add more triplets as needed
+        { name: 'card3', img: 'images/fine.png' },
+        { name: 'card3', img: 'images/fine.png' },
+        { name: 'card4', img: 'images/rollsafe.png' },
+        { name: 'card4', img: 'images/rollsafe.png' },
+        { name: 'card5', img: 'images/success.png' },
+        { name: 'card5', img: 'images/success.png' },
+        // ...add more pairs as needed
     ];
 
     function shuffle(array) {
@@ -24,10 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
         shuffle(cardArray);
         grid.innerHTML = '';
         cardsWon = [];
-
-        // Update the grid-template-columns and grid-template-rows to fit more cards
-        grid.style.gridTemplateColumns = 'repeat(6, 1fr)';
-        grid.style.gridTemplateRows = 'repeat(3, 1fr)';
 
         for (let i = 0; i < cardArray.length; i++) {
             const card = document.createElement('img');
@@ -52,11 +51,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function checkForMatch() {
         const cards = document.querySelectorAll('#game-board img');
-        const firstCardId = cardsChosenId[0];
-        const secondCardId = cardsChosenId[1];
-        const thirdCardId = cardsChosenId[2];
 
         if (cardsChosen[0] === cardsChosen[1] && cardsChosen[0] === cardsChosen[2]) {
+            const firstCardId = cardsChosenId[0];
+            const secondCardId = cardsChosenId[1];
+            const thirdCardId = cardsChosenId[2];
+            
             cards[firstCardId].style.visibility = 'hidden';
             cards[secondCardId].style.visibility = 'hidden';
             cards[thirdCardId].style.visibility = 'hidden';
@@ -65,9 +65,10 @@ document.addEventListener('DOMContentLoaded', () => {
             cards[thirdCardId].removeEventListener('click', flipCard);
             cardsWon.push(cardsChosen);
         } else {
-            cards[firstCardId].setAttribute('src', 'images/blank.png');
-            cards[secondCardId].setAttribute('src', 'images/blank.png');
-            cards[thirdCardId].setAttribute('src', 'images/blank.png');
+            for (let i = 0; i < cardsChosenId.length; i++) {
+                const cardId = cardsChosenId[i];
+                cards[cardId].setAttribute('src', 'images/blank.png');
+            }
         }
 
         cardsChosen = [];
@@ -80,4 +81,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
     startButton.addEventListener('click', createBoard);
 });
-
